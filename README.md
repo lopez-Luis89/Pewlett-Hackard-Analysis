@@ -41,3 +41,12 @@ the are going to retire. There are just toom many employees leaving and to few i
 the mentoring program.
 
 
+
+2. This is a a breakdown of the titles that are available for mentoring
+![image](https://user-images.githubusercontent.com/98116799/161455854-194fe0b0-549e-4a0a-ba26-f0a26d40dab5.png)
+
+There will be a good amount fo engineers and Senior staff available for the mentoring program to allocate priorties
+in recruiting. You can also see the percentage per title.
+
+
+
