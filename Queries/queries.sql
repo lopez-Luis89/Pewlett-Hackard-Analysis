@@ -187,3 +187,62 @@ ON (dep.dept_no = de.dept_no)
 WHERE de.dept_name IN ('Developmnent','Sales') AND
 (birth_date BETWEEN '1952-01-01' AND '1955-12-31')
 AND (hire_date BETWEEN '1985-01-01' AND '1988-12-31');
+
+
+-- -- -- -- -- -- -- --DELIVARABLE 1 -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- 
+SELECT emp_no, first_name, last_name
+FROM employees;
+
+SELECT from_date, to_date, title
+FROM titles;
+
+SELECT count(e.emp_no) AS next_retirement,
+e.first_name, e.last_name, ti.title, ti.from_date,ti.to_date, 
+INTO retirement_titles
+FROM employees AS e
+INNER JOIN titles AS ti
+ON (e.emp_no = ti.emp_no)
+WHERE e.birth_date BETWEEN '1952-01-01' AND '1955-12-31'
+ORDER BY e.emp_no;
+-- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- 
+
+SELECT DISTINCT ON(emp_no)  emp_no, first_name, last_name, title
+INTO unique_titles
+FROM retirement_titles
+WHERE to_date = '9999-01-01'
+ORDER BY emp_no, to_date DESC;
+
+SELECT count(title) AS count_title, title
+INTO retiring_titles
+FROM unique_titles
+GROUP BY title
+ORDER BY count_title DESC;
+-- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- 
+SELECT DISTINCT ON (e.emp_no) e.emp_no, e.first_name,
+e.last_name, e.birth_date,
+dept.from_date,dept.to_date, ti.title
+INTO mentorship_eligibilty
+FROM employees AS e
+INNER JOIN dept_emp as dept
+ON (e.emp_no = dept.emp_no)
+INNER JOIN titles AS ti
+ON (dept.emp_no = ti.emp_no)
+WHERE (ti.to_date = '9999-01-01') AND
+(e.birth_date  BETWEEN '1965-01-01' AND '1965-12-31')
+ORDER BY e.emp_no;
+
+-- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- 
+SELECT title,count(title)as sum_title, 
+FLOOR(count(title) / SUM(COUNT(title))OVER() * 100) AS percent_title
+INTO percent_by_title
+FROM mentorship_eligibilty
+group by title
+Order by percent_title DESC ;
+
+SELECT * FROM mentorship_eligibilty;
+
+SELECT count(mt.emp_no) as total_retiring, Count(e.emp_no) AS total_empl 
+INTO percent_retiring
+FROM employees AS e
+FULL JOIN mentorship_eligibilty as mt 
+ON (e.emp_no = mt.emp_no);
