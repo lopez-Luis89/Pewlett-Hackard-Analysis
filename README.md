@@ -9,7 +9,7 @@
 ## Results
 1. Filtered date of birth  (1952-01-01' AND '1955-12-31') to find eligible employees for retirement using following code:
 
-SELECT e.emp_no, e.first_name, e.last_name, ti.title, ti.from_date,ti.to_date /n
+SELECT e.emp_no, e.first_name, e.last_name, ti.title, ti.from_date,ti.to_date n/
 INTO retirement_titles
 FROM employees AS e
 INNER JOIN titles AS ti
