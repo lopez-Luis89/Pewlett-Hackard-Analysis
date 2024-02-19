@@ -1,4 +1,4 @@
-# Pewlett-Hackard-Analysis
+# SQL Pewlett-Hackard-Analysis
 
 ## Puropose:
   The purpose of this challenge was to get acclimated with SQL to create, read, update and delete information. In this particualr project we 
